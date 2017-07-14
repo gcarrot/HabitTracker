@@ -58,42 +58,8 @@ public class MainActivity extends AppCompatActivity {
         Cursor cursor = db.query(ProjectEntry.TABLE_NAME, projection,
                 null, null,
                 null, null, null);
-        try {
-            TextView displayView = (TextView) findViewById(R.id.text_view);
-            displayView.setText("There are " + cursor.getCount() + " projects in the " + ProjectEntry.TABLE_NAME + " table.\n\n");
 
-            displayView.append(ProjectEntry._ID + " - " +
-                    ProjectEntry.COLUMN_PROJECT_TITLE + " - " +
-                    ProjectEntry.COLUMN_PROJECT_COMPANY + " - " +
-                    ProjectEntry.COLUMN_PROJECT_DESCRIPTION + " - " +
-                    ProjectEntry.COLUMN_PROJECT_STATUS + "\n");
-
-            // Figure out the index of each column
-            int idColumnIndex = cursor.getColumnIndex(ProjectEntry._ID);
-            int titleColumnIndex = cursor.getColumnIndex(ProjectEntry.COLUMN_PROJECT_TITLE);
-            int descriptionColumnIndex = cursor.getColumnIndex(ProjectEntry.COLUMN_PROJECT_DESCRIPTION);
-            int companyColumnIndex = cursor.getColumnIndex(ProjectEntry.COLUMN_PROJECT_COMPANY);
-            int statusColumnIndex = cursor.getColumnIndex(ProjectEntry.COLUMN_PROJECT_STATUS);
-
-            while (cursor.moveToNext()) {
-
-                int currentID = cursor.getInt(idColumnIndex);
-                String currentTitle = cursor.getString(titleColumnIndex);
-                String currentCompany = cursor.getString(companyColumnIndex);
-                String currentDescription = cursor.getString(descriptionColumnIndex);
-                int currentStatus = cursor.getInt(statusColumnIndex);
-
-                displayView.append(("\n" + currentID + " - " +
-                        currentTitle + " - " +
-                        currentCompany + " - " +
-                        currentDescription + " - " +
-                        currentStatus + "\n"));
-            }
-        } finally {
-            // Always close the cursor when you're done reading from it. This releases all its
-            // resources and makes it invalid.
-            cursor.close();
-        }
+        readCursorData(cursor);
     }
 
     @Override
@@ -148,5 +114,44 @@ public class MainActivity extends AppCompatActivity {
         db.delete(ProjectEntry.TABLE_NAME, null, null);
 
         displayDatabaseInfo();
+    }
+
+    private void readCursorData(Cursor cursor){
+        try {
+            TextView displayView = (TextView) findViewById(R.id.text_view);
+            displayView.setText("There are " + cursor.getCount() + " projects in the " + ProjectEntry.TABLE_NAME + " table.\n\n");
+
+            displayView.append(ProjectEntry._ID + " - " +
+                    ProjectEntry.COLUMN_PROJECT_TITLE + " - " +
+                    ProjectEntry.COLUMN_PROJECT_COMPANY + " - " +
+                    ProjectEntry.COLUMN_PROJECT_DESCRIPTION + " - " +
+                    ProjectEntry.COLUMN_PROJECT_STATUS + "\n");
+
+            // Figure out the index of each column
+            int idColumnIndex = cursor.getColumnIndex(ProjectEntry._ID);
+            int titleColumnIndex = cursor.getColumnIndex(ProjectEntry.COLUMN_PROJECT_TITLE);
+            int descriptionColumnIndex = cursor.getColumnIndex(ProjectEntry.COLUMN_PROJECT_DESCRIPTION);
+            int companyColumnIndex = cursor.getColumnIndex(ProjectEntry.COLUMN_PROJECT_COMPANY);
+            int statusColumnIndex = cursor.getColumnIndex(ProjectEntry.COLUMN_PROJECT_STATUS);
+
+            while (cursor.moveToNext()) {
+
+                int currentID = cursor.getInt(idColumnIndex);
+                String currentTitle = cursor.getString(titleColumnIndex);
+                String currentCompany = cursor.getString(companyColumnIndex);
+                String currentDescription = cursor.getString(descriptionColumnIndex);
+                int currentStatus = cursor.getInt(statusColumnIndex);
+
+                displayView.append(("\n" + currentID + " - " +
+                        currentTitle + " - " +
+                        currentCompany + " - " +
+                        currentDescription + " - " +
+                        currentStatus + "\n"));
+            }
+        } finally {
+            // Always close the cursor when you're done reading from it. This releases all its
+            // resources and makes it invalid.
+            cursor.close();
+        }
     }
 }
