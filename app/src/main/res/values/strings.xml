@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">HabitTracker</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="action_delete_all">Delete all data from DB</string>
+    <string name="action_insert_test_data">Insert test data</string>
+
+</resources>
