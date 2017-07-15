@@ -10,7 +10,6 @@ public final class ProjectContract {
     public static abstract class ProjectEntry implements BaseColumns {
         public static final String TABLE_NAME = "projects";
 
-        public static final String _ID = BaseColumns._ID;
         public static final String COLUMN_PROJECT_TITLE = "title";
         public static final String COLUMN_PROJECT_COMPANY = "company";
         public static final String COLUMN_PROJECT_DESCRIPTION = "description";

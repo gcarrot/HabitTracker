@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void displayDatabaseInfo() {
 
+    private Cursor readAllProjects(){
         // Create and/or open a database to read from it
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
@@ -59,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
                 null, null,
                 null, null, null);
 
+        return cursor;
+    }
+
+    private void displayDatabaseInfo() {
+        Cursor cursor = readAllProjects();
         readCursorData(cursor);
     }
 
